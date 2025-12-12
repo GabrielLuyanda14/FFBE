@@ -56,6 +56,9 @@ public class Unit : MonoBehaviour
 
     private List<StatModifier> StatModifiers = new List<StatModifier>();
 
+    public Animator Animator;
+    private bool _DoneAnimating = false;
+    
     public Stat GetStat(StatType type)
     {
         switch (type) {
@@ -106,5 +109,23 @@ public class Unit : MonoBehaviour
             return GetStat(statModifier.TargetStat).RemoveModifier(statModifier);
         }
         return false;
+    }
+
+    public void SetAnimatorTrigger(string trigger){
+        Animator.SetTrigger(trigger);
+    }
+
+    public bool IsAnimatorComplete(){        
+        return _DoneAnimating;
+    }
+
+    public void AnimationComplete(){
+        Debug.Log($"{name} Attack Ended");
+        _DoneAnimating = true;
+    }
+    
+    public void AnimationStarted(){
+        Debug.Log($"{name} Attack Started");
+        _DoneAnimating = false;
     }
 }

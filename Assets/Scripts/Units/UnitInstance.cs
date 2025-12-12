@@ -7,13 +7,13 @@ public class UnitInstance : Unit
 
     public int currentLevel;
     public int currentExp;
-
+    
     //TODO equipment
 
     public void Initialize()
     {
         // 1. Grab the definition from the GameManager
-        UnitDefinition definition = GameManager.Instance.GetUnitDefinition(ID);
+        UnitDefinition definition = UnitDataManager.Instance.GetUnitDefinition(ID);
 
         if (definition == null)
         {
@@ -47,7 +47,8 @@ public class UnitInstance : Unit
         // Note: You would typically handle level growth here too, 
         // e.g., MaxHP.BaseValue += CalculateLevelGrowth(definition, currentLevel);
 
-        GetComponent<Animator>().runtimeAnimatorController = definition.Animator;
+        Animator = GetComponent<Animator>();
+        Animator.runtimeAnimatorController = definition.Animator;
 
         Debug.Log($"{definition.UnitName} initialized with MaxHP Base: {MaxHP.BaseValue}");
     }
